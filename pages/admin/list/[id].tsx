@@ -4,7 +4,6 @@ import dashify from 'dashify';
 import axios from 'axios';
 import { Recipe } from '../../../utils/types';
 import { Montserrat } from '@next/font/google';
-import countries from '../../../utils/countries';
 import { storage } from '../../../firebaseConfig';
 import { ref, uploadBytes } from 'firebase/storage';
 import { fullCategories, getCategoriesDropdown } from '../../../utils/categories';

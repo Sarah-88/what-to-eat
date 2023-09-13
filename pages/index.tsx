@@ -62,7 +62,6 @@ export default function Home() {
         }, 1600);
     }, [setCategory]);
     const getRec = React.useCallback(async () => {
-        console.log('categories??', category);
         const rc = await getRecipes(category.cuisine, category.meat.concat(category.seafood, category.vegetables, category.staples));
         let data: (Recipe & { image: string, reset: boolean })[] = [];
         for (let i = 0; i < rc.length; i++) {
@@ -167,7 +166,7 @@ export default function Home() {
                                             {chosenCard.recipeUrl && <a href={chosenCard.recipeUrl} target="_blank" rel="noopener noreferrer" className="no-underline block border border-theme-color p-1 rounded text-xs">
                                                 <Image src={'/recipe-svgrepo-com.svg'} alt="How to make" width={16} height={16} className="mr-2 inline-block align-middle" />
                                                 How to make
-                                                <span className={`block ${styles.subtitle}`}>({chosenCard.cookTime} minutes)</span>
+                                                <span className={`block ${styles.subtitle}`}>({chosenCard.cookTime + chosenCard.prepTime} minutes)</span>
                                             </a>}
                                         </div>
                                         <div className="flex flex-wrap items-center justify-end whitespace-normal">
