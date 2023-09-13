@@ -42,7 +42,7 @@ const Recipes = (props: { recipesData: Recipe[][] }) => {
             <h1 className={`text-3xl text-center mb-5 ${carter.className}`}>Recipes</h1>
             <div className="grid grid-cols-3 gap-6">
                 {recipesData?.filter((rec, i) => currPage >= i).map((recipeChunk, idx) => (
-                    <RecipeBoxes recipesData={recipeChunk} />
+                    <RecipeBoxes key={`recipebox-${idx}`} recipesData={recipeChunk} />
                 ))}
             </div>
         </div>
