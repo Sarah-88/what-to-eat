@@ -1,0 +1,126 @@
+.categoryCard {}
+
+.subtitle {
+    font-size: 10px;
+    color: rgb(var(--theme-color));
+}
+
+.cardBottomFix {
+    --card-fix-bottom: -50vh;
+    left: calc(50% - 165px);
+    bottom: var(--card-fix-bottom);
+}
+
+.cardContainer {
+    --card-move: 100vw;
+    --card-moveY: -45vh;
+    --card-scale: 1;
+    --card-rotate: 0;
+    --card-width: 160px;
+    --card-z: 0;
+    perspective: 1000px;
+    aspect-ratio: 1/1.5;
+    user-select: none;
+    width: var(--card-width);
+    transform: translateX(var(--card-move)) translateY(var(--card-moveY)) scale(var(--card-scale));
+    transition-delay: var(--card-delay);
+}
+
+.card {
+    transform-style: preserve-3d;
+    transform: rotateY(var(--card-rotate)) translateZ(var(--card-z));
+}
+
+.cardFront {
+    background: linear-gradient(54deg, rgb(var(--theme-color-dark)) 0%, rgb(var(--theme-color)) 50%, rgb(var(--theme-color-dark)) 100%);
+    backface-visibility: hidden;
+}
+
+.cardFront:before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border-radius: 6px;
+    box-shadow: rgb(var(--theme-subcolor)) 0 0 0 2px;
+}
+
+.cardFront:after {
+    content: '';
+    position: absolute;
+    top: 17px;
+    left: 17px;
+    right: 17px;
+    bottom: 17px;
+    border-radius: 2px;
+    z-index: 0;
+    box-shadow: rgb(var(--theme-subcolor)) 0 0 0 10px;
+}
+
+.cardInner {
+    box-shadow: rgb(var(--theme-subcolor)) 0 0 0 2px;
+}
+
+.cardInner2 {
+    box-shadow: rgb(var(--theme-subcolor)) 0 0 0 10px;
+}
+
+.cardPattern {
+    background: linear-gradient(45deg, transparent 34%, rgb(var(--theme-subcolor)) 35%, rgb(var(--theme-subcolor)) 40%, transparent 41%, transparent 59%, rgb(var(--theme-subcolor)) 60%, rgb(var(--theme-subcolor)) 65%, transparent 66%),
+        linear-gradient(135deg, transparent 34%, rgb(var(--theme-subcolor)) 35%, rgb(var(--theme-subcolor)) 40%, transparent 41%, transparent 59%, rgb(var(--theme-subcolor)) 60%, rgb(var(--theme-subcolor)) 65%, transparent 66%);
+    background-size: 1em 1em;
+    background-color: rgb(var(--background-start-rgb));
+    opacity: 1
+}
+
+.cardBack {
+    backface-visibility: hidden;
+    background: linear-gradient(54deg, rgb(var(--theme-color-dark)) 0%, rgb(var(--theme-color)) 50%, rgb(var(--theme-color-dark)) 100%);
+    transform: rotateY(180deg) translateZ(var(--card-z));
+    padding: 5px;
+}
+
+.cardImageContainer {
+    background: linear-gradient(54deg, rgb(var(--theme-color-dark)) 0%, rgb(var(--theme-color)) 30%, rgb(var(--theme-color-light)) 50%, rgb(var(--theme-color)) 70%, rgb(var(--theme-color-dark)) 80%);
+    box-shadow: rgb(var(--theme-color-dark)) 1px 1px 0 1px;
+    padding: 5px;
+    overflow: hidden;
+    border-radius: 50% 50%;
+}
+
+.cardImageContainer:before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border-radius: 50% 50%;
+    background: radial-gradient(ellipse at top right, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 60%);
+    z-index: 0;
+}
+
+.cardImageContainer:after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    right: 4px;
+    bottom: 4px;
+    border-radius: 50% 50%;
+    box-shadow: rgb(var(--theme-color)) 1px 1px 0 1px inset, rgba(0, 0, 0, 0.5) 0 -3px 15px 2px inset;
+}
+
+.cardTitle {
+    border: 1px solid rgb(var(--theme-color));
+    background-color: rgba(var(--theme-subcolor), 0.9);
+}
+
+.moveCategory {
+    --move-cat: 100vw;
+    --move-cat-delay: 0s;
+    transition-delay: var(--move-cat-delay);
+    transform: translateX(var(--move-cat));
+}
