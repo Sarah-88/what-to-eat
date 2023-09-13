@@ -6,7 +6,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         const { slug } = req.body;
         const client = await clientPromise;
         const db = client.db("what-to-eat");
-        const recipe = await db.collection('recipes').findOne({ slug: slug }).limit(1);
+        const recipe = await db.collection('recipes').findOne({ slug: slug });
 
         if (recipe) {
             res.status(400).json({ message: 'slug exists' });
