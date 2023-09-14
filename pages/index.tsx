@@ -22,7 +22,7 @@ const getRecipes: (cuisine: string[], category?: string[]) => Promise<Recipe[]> 
     const res = await axios.post('/api/recipes', { filters: fields, limit: 1, randomize: true });
     return res.data.recipesData;
 }
-const cardWidth = 160;
+const cardWidth = 240;
 
 export default function Home() {
     const cards = Array(19).fill(false);
@@ -63,17 +63,15 @@ export default function Home() {
     }, [setCategory]);
     const getRec = React.useCallback(async () => {
         const rc = await getRecipes(category.cuisine, category.meat.concat(category.seafood, category.vegetables, category.staples));
-        let data: (Recipe & { image: string, reset: boolean })[] = [];
-        for (let i = 0; i < rc.length; i++) {
-            const storageRef = ref(storage, `recipe/${rc[i].id}`);
-            const img = await getBlob(storageRef);
-            data[i] = {
-                ...rc[i],
-                image: URL.createObjectURL(img),
-                reset: false
-            }
+        let data = {} as (Recipe & { image: string, reset: boolean });
+        const storageRef = ref(storage, `recipe/${rc[0].id}`);
+        const img = await getBlob(storageRef);
+        data = {
+            ...rc[0],
+            image: URL.createObjectURL(img),
+            reset: false
         }
-        setChosenCard(data[0]);
+        setChosenCard(data);
         setTimeout(() => {
             setChosenIdx(Math.floor(Math.random() * 19));
             setTimeout(() => {
@@ -123,14 +121,14 @@ export default function Home() {
                         </div>
                     )}
                 </div>
-                <div className={`fixed right-0 whitespace-nowrap transition-all duration-500 ${styles.cardBottomFix}`} style={(!!chosenCard ? { "--card-fix-bottom": "-80px" } : {}) as React.CSSProperties}>
+                <div className={`fixed right-0 whitespace-nowrap transition-all duration-500 ${styles.cardBottomFix}`} style={(!!chosenCard ? { "--card-fix-bottom": "-120px" } : {}) as React.CSSProperties}>
                     {cards.map((c, idx) =>
                         <div key={`cardkey-${idx}`} className={`${styles.cardContainer} relative inline-block transition-all duration-500 rounded-lg`} style={
                             (chosenCard ? {
                                 "--card-move": `${chosenIdx === idx ? (idx * (cardWidth - 10) * -1) + ((idx - 9) * -10) - 4 : idx * (cardWidth - 10) * -1}px`,
                                 "--card-moveY": `${chosenIdx === idx ? '-45vh' : 0}`,
                                 "--card-delay": `${chosenIdx === idx || chosenCard.reset ? 0 : idx * 0.25}s`,
-                                "--card-scale": `${chosenIdx === idx ? 1.2 : 1}`,
+                                "--card-scale": `${chosenIdx === idx ? 1 : 0.5}`,
                                 "--card-rotate": `${chosenIdx === idx && flip ? '180deg' : 0}`,
                                 "--card-z": `${chosenIdx === idx && flip ? '1px' : 0}`,
                             } : {}) as React.CSSProperties}>
@@ -156,27 +154,32 @@ export default function Home() {
                                                     height={180}
                                                 />
                                             </div>
-                                            <span className={`${montserrat.className} ${styles.cardTitle} rounded-md p-1 -mt-4 block z-10 whitespace-normal relative${chosenCard?.title.length > 14 ? ' text-xs' : ' text-sm'}`}>{chosenCard?.title}</span>
+                                            <span className={`${montserrat.className} ${styles.cardTitle} rounded-md p-1 -mt-4 block z-10 whitespace-normal relative${chosenCard?.title.length > 14 ? ' text-md' : ' text-lg'}`}>{chosenCard?.title}</span>
                                         </div>
                                         <div>
-                                            <a href={`https://www.google.com/maps/search/${encodeURIComponent(chosenCard?.title + ' near me')}/`} target="_blank" rel="noopener noreferrer" className="no-underline block mb-1 border border-theme-color p-1 rounded text-xs">
-                                                <Image src={'/restaurant-svgrepo-com.svg'} alt="Where to eat" width={16} height={16} className="mr-2 inline-block align-middle" />
+                                            <a href={`https://www.google.com/maps/search/${encodeURIComponent(chosenCard?.title + ' near me')}/`} target="_blank" rel="noopener noreferrer" className="no-underline block mb-1 border border-theme-color p-1 rounded text-md">
+                                                <Image src={'/restaurant-svgrepo-com.svg'} alt="Where to eat" width={24} height={24} className="mr-2 inline-block align-middle" />
                                                 Where to eat
                                             </a>
-                                            {chosenCard.recipeUrl && <a href={chosenCard.recipeUrl} target="_blank" rel="noopener noreferrer" className="no-underline block border border-theme-color p-1 rounded text-xs">
-                                                <Image src={'/recipe-svgrepo-com.svg'} alt="How to make" width={16} height={16} className="mr-2 inline-block align-middle" />
+                                            {chosenCard.recipeUrl && <a href={chosenCard.recipeUrl} target="_blank" rel="noopener noreferrer" className="no-underline block border border-theme-color p-1 rounded text-md">
+                                                <Image src={'/recipe-svgrepo-com.svg'} alt="How to make" width={24} height={24} className="mr-2 inline-block align-middle" />
                                                 How to make
-                                                <span className={`block ${styles.subtitle}`}>({chosenCard.cookTime + chosenCard.prepTime} minutes)</span>
+                                                <span className={`block theme-color text-xs`}>({chosenCard.cookTime + chosenCard.prepTime} minutes)</span>
                                             </a>}
                                         </div>
                                         <div className="flex flex-wrap items-center justify-end whitespace-normal">
-                                            {chosenCard?.categories.map((cat) => Icons(cat.toLowerCase(), 16, 16, (cat !== 'Meat' && cat !== 'Seafood') || [fullCategories[cat], chosenCard.categories].reduce((a, b) => a.filter(c => b.includes(c))).length === 0))}
+                                            {chosenCard?.categories.map((cat) => Icons(cat.toLowerCase(), 24, 24, (cat !== 'Meat' && cat !== 'Seafood') || [fullCategories[cat], chosenCard.categories].reduce((a, b) => a.filter(c => b.includes(c))).length === 0))}
                                         </div>
                                     </div>
                                 </div>}
                             </div>
                         </div>
                     )}
+                </div>
+                <div className={`fixed w-screen h-screen top-0 left-0 transition-all duration-500 flex justify-center items-center bg-black/50 ${!chosenCard && catPage === catList.length ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 416 512" className="w-24 aspect-square animate-pulse">
+                        <path fill="none" className="stroke-theme-color" strokeWidth={15} d="M207.9 15.2c.8 4.7 16.1 94.5 16.1 128.8 0 52.3-27.8 89.6-68.9 104.6L168 486.7c.7 13.7-10.2 25.3-24 25.3H80c-13.7 0-24.7-11.5-24-25.3l12.9-238.1C27.7 233.6 0 196.2 0 144 0 109.6 15.3 19.9 16.1 15.2 19.3-5.1 61.4-5.4 64 16.3v141.2c1.3 3.4 15.1 3.2 16 0 1.4-25.3 7.9-139.2 8-141.8 3.3-20.8 44.7-20.8 47.9 0 .2 2.7 6.6 116.5 8 141.8.9 3.2 14.8 3.4 16 0V16.3c2.6-21.6 44.8-21.4 48-1.1zm119.2 285.7l-15 185.1c-1.2 14 9.9 26 23.9 26h56c13.3 0 24-10.7 24-24V24c0-13.2-10.7-24-24-24-82.5 0-221.4 178.5-64.9 300.9z" />
+                    </svg>
                 </div>
             </div>
         </>

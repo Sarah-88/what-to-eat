@@ -7,7 +7,7 @@
 
 .cardBottomFix {
     --card-fix-bottom: -50vh;
-    left: calc(50% - 165px);
+    left: calc(50% - 206px);
     bottom: var(--card-fix-bottom);
 }
 
@@ -16,7 +16,7 @@
     --card-moveY: -45vh;
     --card-scale: 1;
     --card-rotate: 0;
-    --card-width: 160px;
+    --card-width: 240px;
     --card-z: 0;
     perspective: 1000px;
     aspect-ratio: 1/1.5;
