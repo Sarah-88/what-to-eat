@@ -3,89 +3,102 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 60, 60, 60;
-  --background-start-rgb: 255, 255, 255;
-  --background-end-rgb: 81, 220, 235;
-  --theme-color: 53, 195, 253;
-  --theme-color-dark: 33, 112, 152;
-  --theme-color-light: 219, 255, 255;
-  --theme-subcolor: 210, 243, 255;
+    --foreground-rgb: 60, 60, 60;
+    --background-start-rgb: 255, 255, 255;
+    --background-end-rgb: 81, 220, 235;
+    --theme-color: 53, 195, 253;
+    --theme-color-dark: 33, 112, 152;
+    --theme-color-light: 219, 255, 255;
+    --theme-subcolor: 210, 243, 255;
 }
+
 @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 101, 41, 0;
-    --theme-color: 255, 215, 0;
-    --theme-color-dark: 150, 107, 7;
-    --theme-color-light: 255, 240, 179;
-    --theme-subcolor: 19, 15, 2;
-  }
+    :root {
+        --foreground-rgb: 255, 255, 255;
+        --background-start-rgb: 0, 0, 0;
+        --background-end-rgb: 101, 41, 0;
+        --theme-color: 255, 215, 0;
+        --theme-color-dark: 150, 107, 7;
+        --theme-color-light: 255, 240, 179;
+        --theme-subcolor: 19, 15, 2;
+    }
 }
 
 * {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
 
 html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
-  min-height: 100vh;
+    max-width: 100vw;
+    overflow-x: hidden;
+    min-height: 100vh;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+    color: rgb(var(--foreground-rgb));
+    background: linear-gradient(to bottom,
+            transparent,
+            rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+    background-attachment: fixed;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+    color: inherit;
+    text-decoration: none;
 }
 
 input[type="checkbox"] {
-  -webkit-appearance: none;
-  appearance: none;
-  background-color: transparent;
-  width: 1.15em;
-  height: 1.15em;
-  position: relative;
-  border: 1px solid rgb(var(--theme-color));
-  border-radius: 3px;
-  overflow: hidden;
-  transition: all .3s;
-}
-input[type="checkbox"]:checked {
-  background-color: rgb(var(--theme-color));
-}
-input[type="checkbox"]::before {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  transition: all .3s;
-  cursor: pointer;
-}
-input[type="checkbox"]:checked::before {
-  background-color: rgb(var(--background-start-rgb));
-  clip-path: polygon(25% 50%, 15% 60%, 40% 80%, 90% 26%, 80% 15%, 40% 60%);
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    width: 1.15em;
+    height: 1.15em;
+    position: relative;
+    border: 1px solid rgb(var(--theme-color));
+    border-radius: 3px;
+    overflow: hidden;
+    transition: all .3s;
 }
 
-.theme-color {color: rgb(var(--theme-color))}
-.bg-theme-color {background-color: rgb(var(--background-start-rgb))}
-.border-theme-color {border-color: rgb(var(--theme-color))}
-.stroke-theme-color {stroke: rgb(var(--theme-color))}
+input[type="checkbox"]:checked {
+    background-color: rgb(var(--theme-color));
+}
+
+input[type="checkbox"]::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: all .3s;
+    cursor: pointer;
+}
+
+input[type="checkbox"]:checked::before {
+    background-color: rgb(var(--background-start-rgb));
+    clip-path: polygon(25% 50%, 15% 60%, 40% 80%, 90% 26%, 80% 15%, 40% 60%);
+}
+
+.theme-color {
+    color: rgb(var(--theme-color))
+}
+
+.bg-theme-color {
+    background-color: rgb(var(--background-start-rgb))
+}
+
+.border-theme-color {
+    border-color: rgb(var(--theme-color))
+}
+
+.stroke-theme-color {
+    stroke: rgb(var(--theme-color))
+}
 
 @media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+    html {
+        color-scheme: dark;
+    }
 }

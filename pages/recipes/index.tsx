@@ -40,7 +40,7 @@ const Recipes = (props: { recipesData: Recipe[][] }) => {
     return (
         <div className="max-w-6xl m-auto mt-10 p-10">
             <h1 className={`text-3xl text-center mb-5 ${carter.className}`}>Recipes</h1>
-            <div className="grid grid-cols-3 gap-6">
+            <div className="grid lg:grid-cols-4 gap-6 grid-cols-2 md:grid-cols-3">
                 {recipesData?.filter((rec, i) => currPage >= i).map((recipeChunk, idx) => (
                     <RecipeBoxes key={`recipebox-${idx}`} recipesData={recipeChunk} />
                 ))}
@@ -52,7 +52,7 @@ const Recipes = (props: { recipesData: Recipe[][] }) => {
 export const getStaticProps = async () => {
     const client = await clientPromise;
     const db = client.db("what-to-eat");
-    const recipeQuery = db.collection('recipes').find({}).project({ _id: 0 }).sort('created', -1)
+    const recipeQuery = db.collection('recipes').find({}).project({ _id: 0 })
     const recipesData = await recipeQuery.toArray()
     return {
         props: { recipesData: chunk(recipesData, 20) },
