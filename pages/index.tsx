@@ -10,6 +10,7 @@ import { getBlob, ref } from 'firebase/storage'
 import { Icons } from '../utils/icons'
 import { fullCategories, getParentCat } from '../utils/categories'
 import CategorySelect from '../components/CategorySelect'
+import Link from 'next/link'
 //import chicken from '../icons/chicken-leg-chicken-svgrepo-com.svg'
 
 const montserrat = Montserrat({ subsets: ['latin'], variable: '--font-montserrat', display: 'swap' })
@@ -99,7 +100,7 @@ export default function Home() {
                     <div className="ml-auto mr-auto mt-3 flex max-w-3xl justify-center">
                         <button type="button" className="border-theme-color border p-2 rounded text-sm m-1" onClick={reset}>Suggest Others</button>
                         <button type="button" className="border-theme-color border p-2 rounded text-sm m-1" onClick={changeCat}>Change Category</button>
-                        <a href="/recipes" className="border-theme-color border p-2 rounded text-sm m-1 inline-block">View All</a>
+                        <Link href="/recipes" className="border-theme-color border p-2 rounded text-sm m-1 inline-block">View All</Link>
                     </div>
                 }
                 <div className={`whitespace-nowrap transition-all duration-500 -ml-3 -mr-3 ${styles.moveCategory}`} style={{
